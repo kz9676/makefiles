@@ -44,7 +44,8 @@ PRJ.OBJ     = $(PRJ.DIR.OBJ)/$(PRJ).o
 PRJ.BIN     = $(PRJ.DIR.BIN)/$(PRJ)
 PRJ.LIB     = $(PRJ.DIR.LIB)/$(PRJ).so
 PRJ.ETC     = $(PRJ.DIR.ETC)/$(PRJ).conf
-PRJ.DOC     = $(PRJ.DIR.ETC)/$(PRJ).txt
+PRJ.DOC     = $(PRJ.DIR.DOC)/$(PRJ).txt
+PRJ.LOG     = $(PRJ.DIR.LOG)/$(PRJ).log
 
 SYS.ENV     = $(HOME)/.local
 SYS.DIR.INC = $(SYS.ENV)/include
@@ -63,7 +64,8 @@ SYS.OBJ     = $(SYS.DIR.OBJ)/$(PRJ).o
 SYS.BIN     = $(SYS.DIR.BIN)/$(PRJ)
 SYS.LIB     = $(SYS.DIR.LIB)/$(PRJ).so
 SYS.ETC     = $(SYS.DIR.ETC)/$(PRJ).conf
-SYS.DOC     = $(SYS.DIR.ETC)/$(PRJ).txt
+SYS.DOC     = $(SYS.DIR.DOC)/$(PRJ).txt
+PRJ.LOG     = $(PRJ.DIR.LOG)/$(PRJ).log
 
 setup:
 	@if [ ! -d $(PRJ.DIR.INC) ]; then mkdir -pv $(PRJ.DIR.INC); fi
@@ -78,10 +80,10 @@ setup:
 	@if [ ! -d $(PRJ.DIR.LOG) ]; then mkdir -pv $(PRJ.DIR.LOG); fi
 
 build: setup
-	gcc -E -g -I $(PRJ.DIR.INC) $(PRJ.SRC) -o $(PRJ.PRO)
-	gcc -S -g -I $(PRJ.DIR.INC) $(PRJ.PRO) -o $(PRJ.ASM)
-	gcc -c -g -I $(PRJ.DIR.INC) $(PRJ.ASM) -o $(PRJ.OBJ)
-	gcc    -g -I $(PRJ.DIR.INC) $(PRJ.OBJ) -o $(PRJ.BIN)
+	gcc -E -g -I $(PRJ.DIR.INC) $(PRJ.SRC) -o $(PRJ.PRO) >> $(PRJ.LOG)
+	gcc -S -g -I $(PRJ.DIR.INC) $(PRJ.PRO) -o $(PRJ.ASM) >> $(PRJ.LOG)
+	gcc -c -g -I $(PRJ.DIR.INC) $(PRJ.ASM) -o $(PRJ.OBJ) >> $(PRJ.LOG)
+	gcc    -g -I $(PRJ.DIR.INC) $(PRJ.OBJ) -o $(PRJ.BIN) >> $(PRJ.LOG)
 
 list:
 	@if [ -d $(PRJ.DIR.INC) ]; then ls -d $(PRJ.DIR.INC); ls -a $(PRJ.DIR.INC); fi
