@@ -113,12 +113,6 @@ clean:
 	@if [ -d $(PRJ.DIR.LIB) ]; then rm -rfv $(PRJ.DIR.LIB); fi
 	@if [ -d $(PRJ.DIR.LOG) ]; then rm -rfv $(PRJ.DIR.LOG); fi
 
-self-install:
-	@cp -v ./Makefile.debian.make $(SYS.DIR.BIN)
-
-self-uninstall:
-	@rm -v $(SYS.DIR.BIN)/Makefile.debian.make
-
 help:
-	@echo "Commands: setup, build, list, test, package, install, uninstall, clean, self-install, self-uninstall, help."
+	@echo "Usage: make {setup,build,list,test,package,install,uninstall,clean,help}"
 
