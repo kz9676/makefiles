@@ -1,0 +1,74 @@
+* ae5d1b7 
+|  2020-11-15 
+|  Kostya Zolotarov 
+|  Debian MQL makefile (HEAD -> main, origin/main, origin/HEAD) 
+| 
+* 79eabab 
+|  2020-11-15 
+|  Kostya Zolotarov 
+|  Bash makefile test target 
+| 
+* 1df3f06 
+|  2020-11-12 
+|  Kostya Zolotarov 
+|  Debian Bash makefile 
+| 
+* 52dc65d 
+|  2020-11-02 
+|  Kostya Zolotarov 
+|  Added build log. 
+| 
+* 4cf1b3f 
+|  2020-11-02 
+|  Kostya Zolotarov 
+|  Removed self-install. 
+| 
+* b8bc730 
+|  2020-10-31 
+|  Kostya Zolotarov 
+|  Verbose setup 
+| 
+* ec74e61 
+|  2020-10-31 
+|  Kostya Zolotarov 
+|  Project makefile 
+| 
+* 42080a7 
+|  2020-10-31 
+|  Kostya Zolotarov 
+|  FHS project layout 
+| 
+* f091cbb 
+|  2020-10-31 
+|  Kostya Zolotarov 
+|  .gitignore file 
+| 
+* c8d45eb 
+|  2020-10-31 
+|  Kostya Zolotarov 
+|  Debian Makefile makefile 
+| 
+* bf64679 
+|  2020-10-31 
+|  Kostya Zolotarov 
+|  /bin/sh compatibility fix 
+| 
+* 98fe4c5 
+|  2020-10-30 
+|  Kostya Zolotarov 
+|  Debian GCC makefile 
+| 
+* 4dfdcf1 
+|  2020-10-30 
+|  Kostya Zolotarov 
+|  Self install/uninstall commands 
+| 
+* 40c7ae0 
+|  2020-10-30 
+|  Kostya Zolotarov 
+|  Cygwin GCC makefile 
+| 
+* b9993ef 
+   2020-10-30 
+   Kostya Zolotarov 
+   Initial commit 
