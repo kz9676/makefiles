@@ -1,7 +1,32 @@
+*   04e20b3 
+|\   2020-11-21 
+| |  Kostya Zolotarov 
+| |  Merge branch 'main' of github.com:/kz9676/makefiles into main (HEAD -> main, origin/main, origin/HEAD) 
+| | 
+| * f0ac865 
+| |  2020-11-19 
+| |  Kostya Zolotarov 
+| |  Cygwing MQL makefile 
+| | 
+* | 5ae7cc6 
+| |  2020-11-21 
+| |  Kostya Zolotarov 
+| |  Debug target 
+| | 
+* | eeff954 
+|/   2020-11-21 
+|    Kostya Zolotarov 
+|    Platform uitls 
+| 
+* 6ad5141 
+|  2020-11-15 
+|  Kostya Zolotarov 
+|  Project docs 
+| 
 * ae5d1b7 
 |  2020-11-15 
 |  Kostya Zolotarov 
-|  Debian MQL makefile (HEAD -> main, origin/main, origin/HEAD) 
+|  Debian MQL makefile 
 | 
 * 79eabab 
 |  2020-11-15 

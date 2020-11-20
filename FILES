@@ -16,6 +16,7 @@
 |--  ./include
 |--  ./INSTALL
 |--  ./LICENSE
+|--  ./README
 |--  ./REQUIREMENTS
 |--  ./SOURCES
 |--  ./src
@@ -23,4 +24,4 @@
 |--  ./TEST
 \--  ./VERSION
 
-23 files
+24 files
