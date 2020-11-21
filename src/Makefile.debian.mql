@@ -29,6 +29,10 @@ platform=$(platform.root)/$(platform.name)
 all: build 
 
 setup:
+	make -C $(platform) setup
+
+compile:
+	make -C $(platform) compile
 
 build:
 	make -C $(platform) build
