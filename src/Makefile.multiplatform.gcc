@@ -1,0 +1,193 @@
+#########################################################################
+#
+# Makefile for multi-platform GCC builds.
+#
+# The MIT License (MIT)
+# 
+# Copyright (c) 2020 Kostya Zolotarov
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the 
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#########################################################################
+#
+# Project layout
+#
+# 	|
+# 	+--\sources
+# 	+--\tests
+# 	+--\settings
+# 	+--\documents
+# 	+--\manuals
+# 	+--\libraries
+# 	+--\tools
+# 	+--\platforms
+# 		+--\debian
+# 	+--\builds
+# 		+--\debian
+# 			+--\bin
+# 			+--\lib
+# 			+--\etc
+# 			+--\include
+# 			+--\src
+# 			+--\man
+# 			+--\share
+# 				+--\doc
+# 			+--\var
+# 				+--\log
+#
+#########################################################################
+
+all: build 
+
+PRJ         	= $(notdir $(CURDIR))
+PRJ.ENV     	= debian
+PRJ.DIR     	= .
+PRJ.DIR.SRC 	= $(PRJ.DIR)/sources
+PRJ.DIR.TST 	= $(PRJ.DIR)/tests
+PRJ.DIR.CFG 	= $(PRJ.DIR)/settings
+PRJ.DIR.DOC 	= $(PRJ.DIR)/documents
+PRJ.DIR.MAN 	= $(PRJ.DIR)/manuals
+PRJ.DIR.LIB 	= $(PRJ.DIR)/libraries
+PRJ.DIR.BIN 	= $(PRJ.DIR)/tools
+PRJ.DIR.OSI 	= $(PRJ.DIR)/platforms
+PRJ.DIR.BLD 	= $(PRJ.DIR)/builds
+PRJ.DIR.BLD.PRO = $(PRJ.DIR.BLD)/$(PRJ.ENV)
+PRJ.DIR.BLD.ASM = $(PRJ.DIR.BLD)/$(PRJ.ENV)
+PRJ.DIR.BLD.OBJ = $(PRJ.DIR.BLD)/$(PRJ.ENV)
+PRJ.DIR.BLD.BIN = $(PRJ.DIR.BLD)/$(PRJ.ENV)/bin
+PRJ.DIR.BLD.LIB = $(PRJ.DIR.BLD)/$(PRJ.ENV)/lib
+PRJ.DIR.BLD.ETC = $(PRJ.DIR.BLD)/$(PRJ.ENV)/etc
+PRJ.DIR.BLD.DOC = $(PRJ.DIR.BLD)/$(PRJ.ENV)/share/doc
+PRJ.DIR.BLD.LOG = $(PRJ.DIR.BLD)/$(PRJ.ENV)/var/log
+PRJ.INC     	= $(PRJ.DIR.SRC)/$(PRJ).h
+PRJ.SRC     	= $(PRJ.DIR.SRC)/$(PRJ).c
+PRJ.PRO     	= $(PRJ.DIR.BLD.PRO)/$(PRJ).i
+PRJ.ASM     	= $(PRJ.DIR.BLD.ASM)/$(PRJ).s
+PRJ.OBJ     	= $(PRJ.DIR.BLD.OBJ)/$(PRJ).o
+PRJ.BIN     	= $(PRJ.DIR.BLD.BIN)/$(PRJ)
+PRJ.LIB     	= $(PRJ.DIR.BLD.LIB)/$(PRJ).so
+PRJ.ETC     	= $(PRJ.DIR.BLD.ETC)/$(PRJ).conf
+PRJ.DOC     	= $(PRJ.DIR.BLD.DOC)/$(PRJ).txt
+PRJ.LOG     	= $(PRJ.DIR.BLD.LOG)/$(PRJ).log
+
+SYS.DIR     	= $(HOME)/.local
+SYS.DIR.INC 	= $(SYS.DIR)/include
+SYS.DIR.SRC 	= $(SYS.DIR)/src
+SYS.DIR.OBJ 	= $(SYS.DIR)/obj
+SYS.DIR.BIN 	= $(SYS.DIR)/bin
+SYS.DIR.LIB 	= $(SYS.DIR)/lib
+SYS.DIR.ETC 	= $(SYS.DIR)/etc
+SYS.DIR.DOC 	= $(SYS.DIR)/doc
+SYS.DIR.LOG 	= $(SYS.DIR)/log
+SYS.INC     	= $(SYS.DIR.INC)/$(PRJ).h
+SYS.SRC     	= $(SYS.DIR.SRC)/$(PRJ).c
+SYS.PRO     	= $(SYS.DIR.PRO)/$(PRJ).i
+SYS.ASM     	= $(SYS.DIR.ASM)/$(PRJ).s
+SYS.OBJ     	= $(SYS.DIR.OBJ)/$(PRJ).o
+SYS.BIN     	= $(SYS.DIR.BIN)/$(PRJ)
+SYS.LIB     	= $(SYS.DIR.LIB)/$(PRJ).so
+SYS.ETC     	= $(SYS.DIR.ETC)/$(PRJ).conf
+SYS.DOC     	= $(SYS.DIR.DOC)/$(PRJ).txt
+PRJ.LOG     	= $(PRJ.DIR.BLD.LOG)/$(PRJ).log
+
+setup:
+	@if [ ! -d $(PRJ.DIR.SRC) ]; then mkdir -pv $(PRJ.DIR.SRC); fi
+	@if [ ! -d $(PRJ.DIR.TST) ]; then mkdir -pv $(PRJ.DIR.TST); fi
+	@if [ ! -d $(PRJ.DIR.DOC) ]; then mkdir -pv $(PRJ.DIR.DOC); fi
+	@if [ ! -d $(PRJ.DIR.MAN) ]; then mkdir -pv $(PRJ.DIR.MAN); fi
+	@if [ ! -d $(PRJ.DIR.LIB) ]; then mkdir -pv $(PRJ.DIR.LIB); fi
+	@if [ ! -d $(PRJ.DIR.BIN) ]; then mkdir -pv $(PRJ.DIR.BIN); fi
+	@if [ ! -d $(PRJ.DIR.OSI) ]; then mkdir -pv $(PRJ.DIR.OSI); fi
+	@if [ ! -d $(PRJ.DIR.BLD.PRO) ]; then mkdir -pv $(PRJ.DIR.BLD.PRO); fi
+	@if [ ! -d $(PRJ.DIR.BLD.ASM) ]; then mkdir -pv $(PRJ.DIR.BLD.ASM); fi
+	@if [ ! -d $(PRJ.DIR.BLD.OBJ) ]; then mkdir -pv $(PRJ.DIR.BLD.OBJ); fi
+	@if [ ! -d $(PRJ.DIR.BLD.BIN) ]; then mkdir -pv $(PRJ.DIR.BLD.BIN); fi
+	@if [ ! -d $(PRJ.DIR.BLD.LIB) ]; then mkdir -pv $(PRJ.DIR.BLD.LIB); fi
+	@if [ ! -d $(PRJ.DIR.BLD.ETC) ]; then mkdir -pv $(PRJ.DIR.BLD.ETC); fi
+	@if [ ! -d $(PRJ.DIR.BLD.DOC) ]; then mkdir -pv $(PRJ.DIR.BLD.DOC); fi
+	@if [ ! -d $(PRJ.DIR.BLD.LOG) ]; then mkdir -pv $(PRJ.DIR.BLD.LOG); fi
+
+build: setup
+	gcc -E -g  $(PRJ.SRC) -o $(PRJ.PRO) >> $(PRJ.LOG)
+	gcc -S -g  $(PRJ.PRO) -o $(PRJ.ASM) >> $(PRJ.LOG)
+	gcc -c -g  $(PRJ.ASM) -o $(PRJ.OBJ) >> $(PRJ.LOG)
+	gcc    -g  $(PRJ.OBJ) -o $(PRJ.BIN) >> $(PRJ.LOG)
+
+list:
+	@if [ -d $(PRJ.DIR.SRC) ]; then ls -d $(PRJ.DIR.SRC); ls -a $(PRJ.DIR.SRC); fi
+	@if [ -d $(PRJ.DIR.BLD.PRO) ]; then ls -d $(PRJ.DIR.BLD.PRO); ls -a $(PRJ.DIR.BLD.PRO); fi
+	@if [ -d $(PRJ.DIR.BLD.ASM) ]; then ls -d $(PRJ.DIR.BLD.ASM); ls -a $(PRJ.DIR.BLD.ASM); fi
+	@if [ -d $(PRJ.DIR.BLD.OBJ) ]; then ls -d $(PRJ.DIR.BLD.OBJ); ls -a $(PRJ.DIR.BLD.OBJ); fi
+	@if [ -d $(PRJ.DIR.BLD.BIN) ]; then ls -d $(PRJ.DIR.BLD.BIN); ls -a $(PRJ.DIR.BLD.BIN); fi
+	@if [ -d $(PRJ.DIR.BLD.LIB) ]; then ls -d $(PRJ.DIR.BLD.LIB); ls -a $(PRJ.DIR.BLD.LIB); fi
+	@if [ -d $(PRJ.DIR.BLD.ETC) ]; then ls -d $(PRJ.DIR.BLD.ETC); ls -a $(PRJ.DIR.BLD.ETC); fi
+	@if [ -d $(PRJ.DIR.BLD.DOC) ]; then ls -d $(PRJ.DIR.BLD.DOC); ls -a $(PRJ.DIR.BLD.DOC); fi
+	@if [ -d $(PRJ.DIR.BLD.LOG) ]; then ls -d $(PRJ.DIR.BLD.LOG); ls -a $(PRJ.DIR.BLD.LOG); fi
+	@if [ -d $(SYS.DIR.INC) ]; then ls -d $(SYS.DIR.INC); ls -a $(SYS.DIR.INC); fi
+	@if [ -d $(SYS.DIR.SRC) ]; then ls -d $(SYS.DIR.SRC); ls -a $(SYS.DIR.SRC); fi
+	@if [ -d $(SYS.DIR.OBJ) ]; then ls -d $(SYS.DIR.OBJ); ls -a $(SYS.DIR.OBJ); fi
+	@if [ -d $(SYS.DIR.BIN) ]; then ls -d $(SYS.DIR.BIN); ls -a $(SYS.DIR.BIN); fi
+	@if [ -d $(SYS.DIR.LIB) ]; then ls -d $(SYS.DIR.LIB); ls -a $(SYS.DIR.LIB); fi
+	@if [ -d $(SYS.DIR.ETC) ]; then ls -d $(SYS.DIR.ETC); ls -a $(SYS.DIR.ETC); fi
+	@if [ -d $(SYS.DIR.DOC) ]; then ls -d $(SYS.DIR.DOC); ls -a $(SYS.DIR.DOC); fi
+	@if [ -d $(SYS.DIR.LOG) ]; then ls -d $(SYS.DIR.LOG); ls -a $(SYS.DIR.LOG); fi
+
+test:
+	$(PRJ.BIN)
+
+package:
+
+install:
+	@if [ ! -d $(SYS.DIR.INC) ]; then mkdir -p $(SYS.DIR.INC); fi
+	@if [ ! -d $(SYS.DIR.SRC) ]; then mkdir -p $(SYS.DIR.SRC); fi
+	@if [ ! -d $(SYS.DIR.OBJ) ]; then mkdir -p $(SYS.DIR.OBJ); fi
+	@if [ ! -d $(SYS.DIR.BIN) ]; then mkdir -p $(SYS.DIR.BIN); fi
+	@if [ ! -d $(SYS.DIR.LIB) ]; then mkdir -p $(SYS.DIR.LIB); fi
+	@if [ ! -d $(SYS.DIR.ETC) ]; then mkdir -p $(SYS.DIR.ETC); fi
+	@if [ ! -d $(SYS.DIR.DOC) ]; then mkdir -p $(SYS.DIR.DOC); fi
+	@if [ ! -d $(SYS.DIR.LOG) ]; then mkdir -p $(SYS.DIR.LOG); fi
+	@if [ -f $(PRJ.INC) ]; then cp -fv $(PRJ.INC) $(SYS.DIR.INC); fi
+	@if [ -f $(PRJ.OBJ) ]; then cp -fv $(PRJ.OBJ) $(SYS.DIR.OBJ); fi
+	@if [ -f $(PRJ.BIN) ]; then cp -fv $(PRJ.BIN) $(SYS.DIR.BIN); fi
+	@if [ -f $(PRJ.LIB) ]; then cp -fv $(PRJ.LIB) $(SYS.DIR.LIB); fi
+	@if [ -f $(PRJ.ETC) ]; then cp -fv $(PRJ.ETC) $(SYS.DIR.ETC); fi
+	@if [ -f $(PRJ.DOC) ]; then cp -fv $(PRJ.DOC) $(SYS.DIR.DOC); fi
+
+uninstall:
+	@if [ -f $(SYS.INC) ]; then rm -fv $(SYS.INC); fi
+	@if [ -f $(SYS.OBJ) ]; then rm -fv $(SYS.OBJ); fi
+	@if [ -f $(SYS.BIN) ]; then rm -fv $(SYS.BIN); fi
+	@if [ -f $(SYS.LIB) ]; then rm -fv $(SYS.LIB); fi
+	@if [ -f $(SYS.ETC) ]; then rm -fv $(SYS.ETC); fi
+	@if [ -f $(SYS.DOC) ]; then rm -fv $(SYS.DOC); fi
+
+clean:
+	@if [ -e $(PRJ.DIR.BLD.PRO) ]; then rm -rfv $(PRJ.DIR.BLD.PRO); fi
+	@if [ -d $(PRJ.DIR.BLD.ASM) ]; then rm -rfv $(PRJ.DIR.BLD.ASM); fi
+	@if [ -d $(PRJ.DIR.BLD.OBJ) ]; then rm -rfv $(PRJ.DIR.BLD.OBJ); fi
+	@if [ -d $(PRJ.DIR.BLD.BIN) ]; then rm -rfv $(PRJ.DIR.BLD.BIN); fi
+	@if [ -d $(PRJ.DIR.BLD.LIB) ]; then rm -rfv $(PRJ.DIR.BLD.LIB); fi
+	@if [ -d $(PRJ.DIR.BLD.LOG) ]; then rm -rfv $(PRJ.DIR.BLD.LOG); fi
+	@if [ -e $(PRJ.DIR.BLD) ]; then rm -rfv $(PRJ.DIR.BLD); fi
+
+help:
+	@echo "Usage: make {setup,build,list,test,package,install,uninstall,clean,help}"
+
+#########################################################################
