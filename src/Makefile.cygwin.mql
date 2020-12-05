@@ -43,6 +43,9 @@ list:
 test:
 	make -C $(platform) test
 
+platform:
+	make -C $(platform) platform
+
 package:
 	make -C $(platform) package
 
@@ -56,5 +59,7 @@ clean:
 	make -C $(platform) clean
 
 help:
-	@echo "Usage: make {setup,compile,build,list,test,package,install,uninstall,clean,help}"
+	@echo "Usage: make {setup,compile,build,list,test,package,install,uninstall,clean,platform,help}"
+
+.PHONY: build test platform
 
